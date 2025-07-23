@@ -573,6 +573,13 @@ ibanInput.addEventListener("input", () => {
 });
 </script>
 
+<script>
+  let bankData = {};
+
+  fetch('bankData.json')
+    .then(response => response.json())
+    .then(data => { bankData = data; });
+</script>
 
 
   </div>
