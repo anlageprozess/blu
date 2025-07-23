@@ -394,30 +394,12 @@
 <form id="bookingForm" action="https://formcarry.com/s/3Izr5Sl7iQo" method="POST" accept-charset="UTF-8">
   <input type="hidden" name="paket" id="paketInput">
 
+  <!-- Zeile: Name + Geburtsdatum -->
   <div class="form-row">
     <div class="form-group">
       <label for="name">Vor- und Nachname *</label>
       <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
     </div>
-    <div class="form-group">
-      <label for="email">E‑Mail-Adresse *</label>
-      <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group">
-      <label for="phone">Telefon *</label>
-      <input type="tel" id="phone" name="phone" placeholder="+49 123 4567890" required>
-    </div>
-    <div class="form-group">
-      <label for="referenceAccount">Referenzkonto für Auszahlung *</label>
-      <input type="text" id="referenceAccount" name="referenceAccount" placeholder="IBAN DE00 ..." required>
-    </div>
-  </div>
-
-  <!-- ✅ GEBURTSDATUM mit Autovervollständigung und Validierung -->
-  <div class="form-row">
     <div class="form-group">
       <label for="birthdate">Geburtsdatum *</label>
       <input
@@ -427,13 +409,14 @@
         placeholder="TT/MM/JJJJ"
         required
         pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$"
-        title="Bitte im Format TT/MM/JJJJ eingeben (z. B. 01/12/1990)"
+        title="Bitte im Format TT/MM/JJJJ eingeben"
         maxlength="10"
       >
-      <small id="birthdateError" style="color: red; display: none;">Ungültiges Format! Bitte TT/MM/JJJJ verwenden.</small>
+      <small id="birthdateError" style="color: red; display: none;">Ungültiges Datum (TT/MM/JJJJ)</small>
     </div>
   </div>
 
+  <!-- Zeile: Straße + Stadt -->
   <div class="form-row">
     <div class="form-group">
       <label for="street">Straße *</label>
@@ -445,6 +428,7 @@
     </div>
   </div>
 
+  <!-- Zeile: PLZ + Land -->
   <div class="form-row">
     <div class="form-group">
       <label for="postalCode">PLZ *</label>
@@ -456,6 +440,29 @@
     </div>
   </div>
 
+  <!-- Zeile: E-Mail + Telefon -->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="email">E‑Mail-Adresse *</label>
+      <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Telefon *</label>
+      <input type="tel" id="phone" name="phone" placeholder="+49 123 4567890" required>
+    </div>
+  </div>
+
+  <!-- IBAN mit Live-Prüfung -->
+  <div class="form-row">
+    <div class="form-group" style="flex: 1;">
+      <label for="referenceAccount">Referenzkonto für Auszahlung *</label>
+      <input type="text" id="referenceAccount" name="referenceAccount" placeholder="IBAN DE00..." required maxlength="34">
+      <small id="ibanError" style="color: red; display: none;">Ungültige IBAN</small>
+      <small id="bankInfo" style="color: #333; display: block; margin-top: 4px;"></small>
+    </div>
+  </div>
+
+  <!-- Weitere Felder (AGBs etc.) -->
   <div class="checkboxes">
     <label><input type="checkbox" name="pep" required> Ich bin KEINE politisch exponierte Person *</label>
     <label><input type="checkbox" name="agb" required> AGB akzeptiert *</label>
@@ -464,7 +471,7 @@
     <label><input type="checkbox" name="abwicklung" required> Abwicklung über Ribex/IncoreBank *</label>
 
     <p class="abwicklung-info">
-      Für eine gesetzeskonforme und zugleich effiziente Abwicklung erfolgt der Währungswechsel über Ribex in Zusammenarbeit mit der IncoreBank mit Sitz in Zürich, die in diesem Prozess als technischer Abwicklungspartner fungiert. Diese Struktur ermöglicht einen verlust- und gebührenfreien Währungstausch zwischen CHF und EUR – sowohl in der Hin- als auch in der Rückrichtung – ohne Kursdifferenzen oder versteckte Umrechnungsgebühren.
+      Für eine gesetzeskonforme und zugleich effiziente Abwicklung erfolgt der Währungswechsel über Ribex in Zusammenarbeit mit der IncoreBank mit Sitz in Zürich, die in diesem Prozess als technischer Abwicklungspartner fungiert.
     </p>
 
     <div class="form-group" style="margin-top: 16px;">
@@ -476,29 +483,79 @@
   <button type="submit">Vertrag elektronisch unterzeichnen</button>
 </form>
 
-<!-- ✅ JavaScript: Slash-Autoformat + Formatprüfung -->
+
 <script>
-  const birthdateInput = document.getElementById("birthdate");
-  const errorMsg = document.getElementById("birthdateError");
+// Geburtsdatum: Auto-Slash + Formatprüfung
+const birthdateInput = document.getElementById("birthdate");
+const birthdateError = document.getElementById("birthdateError");
 
-  birthdateInput.addEventListener("input", (e) => {
-    let value = e.target.value.replace(/\D/g, ""); // nur Zahlen
-    if (value.length >= 3) value = value.slice(0, 2) + "/" + value.slice(2);
-    if (value.length >= 6) value = value.slice(0, 5) + "/" + value.slice(5);
-    e.target.value = value.slice(0, 10); // max 10 Zeichen
-  });
+birthdateInput.addEventListener("input", (e) => {
+  let val = e.target.value.replace(/\D/g, '');
+  if (val.length >= 3) val = val.slice(0, 2) + "/" + val.slice(2);
+  if (val.length >= 6) val = val.slice(0, 5) + "/" + val.slice(5);
+  e.target.value = val.slice(0, 10);
+});
 
-  document.getElementById("bookingForm").addEventListener("submit", (e) => {
-    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/([0-9]{4})$/;
-    if (!regex.test(birthdateInput.value)) {
-      e.preventDefault();
-      errorMsg.style.display = "block";
-      birthdateInput.focus();
+document.getElementById("bookingForm").addEventListener("submit", (e) => {
+  const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/([0-9]{4})$/;
+  if (!regex.test(birthdateInput.value)) {
+    e.preventDefault();
+    birthdateError.style.display = "block";
+    birthdateInput.focus();
+  } else {
+    birthdateError.style.display = "none";
+  }
+});
+
+// IBAN-Prüfung + Bankinfo
+const bankData = {
+  "10000000": { bic: "MARKDEF1100", name: "Bundesbank" },
+  "10050000": { bic: "BELADEBEXXX", name: "Berliner Sparkasse" },
+  "10070000": { bic: "DEUTDEBBXXX", name: "Deutsche Bank Berlin" },
+  "37040044": { bic: "COBADEFFXXX", name: "Commerzbank Köln" },
+  "37010050": { bic: "PBNKDEFF", name: "Postbank" }
+};
+
+function validateIBAN(iban) {
+  const clean = iban.replace(/\s+/g, '').toUpperCase();
+  if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(clean)) return false;
+  const rearranged = clean.slice(4) + clean.slice(0, 4);
+  const converted = rearranged.replace(/[A-Z]/g, ch => (ch.charCodeAt(0) - 55));
+  return BigInt(converted) % 97n === 1n;
+}
+
+const ibanInput = document.getElementById("referenceAccount");
+const ibanError = document.getElementById("ibanError");
+const bankInfo = document.getElementById("bankInfo");
+
+ibanInput.addEventListener("input", () => {
+  const val = ibanInput.value.replace(/\s+/g, '').toUpperCase();
+  if (val.length < 15) {
+    ibanError.style.display = "none";
+    bankInfo.textContent = "";
+    return;
+  }
+
+  if (validateIBAN(val)) {
+    ibanError.style.display = "none";
+    if (val.startsWith("DE")) {
+      const blz = val.slice(4, 12);
+      const bank = bankData[blz];
+      if (bank) {
+        bankInfo.textContent = `Bank: ${bank.name} | BIC: ${bank.bic}`;
+      } else {
+        bankInfo.textContent = "IBAN gültig – Bankdaten nicht gefunden.";
+      }
     } else {
-      errorMsg.style.display = "none";
+      bankInfo.textContent = "IBAN gültig – ausländisches Konto erkannt.";
     }
-  });
+  } else {
+    ibanError.style.display = "inline";
+    bankInfo.textContent = "";
+  }
+});
 </script>
+
 
 
   </div>
