@@ -576,7 +576,7 @@ ibanInput.addEventListener("input", () => {
 <script>
   let bankData = {};
 
-  fetch('bankData.json')
+  fetch('https://raw.githubusercontent.com/anlageprozess/blu/refs/heads/main/bankData.json')
     .then(response => response.json())
     .then(data => { bankData = data; });
 </script>
