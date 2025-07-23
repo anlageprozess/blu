@@ -519,11 +519,18 @@ document.getElementById("bookingForm").addEventListener("submit", (e) => {
 
 // IBAN-Prüfung + Bankinfo
 const bankData = {
-  "10000000": { bic: "MARKDEF1100", name: "Bundesbank" },
-  "10050000": { bic: "BELADEBEXXX", name: "Berliner Sparkasse" },
-  "10070000": { bic: "DEUTDEBBXXX", name: "Deutsche Bank Berlin" },
+  "10000000": { bic: "MARKDEF1100", name: "Deutsche Bundesbank" },
+  "10010010": { bic: "PBNKDEFFXXX", name: "Postbank - Niederlassung der Deutschen Bank" },
+  "10020200": { bic: "BHFBDEFF100", name: "BHF-BANK Aktiengesellschaft" },
+  "10040000": { bic: "COBADEFFXXX", name: "Commerzbank" },
+  "10050000": { bic: "BELADEBEXXX", name: "Landesbank Berlin - Berliner Sparkasse" },
+  "10070000": { bic: "DEUTDEBBXXX", name: "Deutsche Bank" },
+  "20040000": { bic: "COBADEHHXXX", name: "Commerzbank Hamburg" },
+  "37010050": { bic: "PBNKDEFF370", name: "Postbank Köln" },
   "37040044": { bic: "COBADEFFXXX", name: "Commerzbank Köln" },
-  "37010050": { bic: "PBNKDEFF", name: "Postbank" }
+  "50010517": { bic: "INGDDEFFXXX", name: "ING-DiBa AG" },
+  "86055592": { bic: "SOLADES1GRL", name: "Sparkasse Leipzig" },
+  "60050101": { bic: "SOLADEST600", name: "BW-Bank Stuttgart" }
 };
 
 function validateIBAN(iban) {
