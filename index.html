@@ -573,15 +573,6 @@ ibanInput.addEventListener("input", () => {
 });
 </script>
 
-<script>
-  let bankData = {};
-
-  fetch('https://raw.githubusercontent.com/anlageprozess/blu/refs/heads/main/bankData.json')
-    .then(response => response.json())
-    .then(data => { bankData = data; });
-</script>
-
-
   </div>
 </div>
 
@@ -658,6 +649,18 @@ ibanInput.addEventListener("input", () => {
   window.onclick = function(e) {
     if (e.target === modal) closeModal();
   };
+</script>
+<script>
+  let bankData = {};
+
+  fetch("https://raw.githubusercontent.com/anlageprozess/blu/refs/heads/main/bankData.json")
+    .then(response => response.json())
+    .then(data => {
+      bankData = data;
+    })
+    .catch(error => {
+      console.error("Fehler beim Laden der bankData.json:", error);
+    });
 </script>
 
 </body>
