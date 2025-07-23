@@ -379,7 +379,7 @@
   <div class="line"></div>
   <div class="step">
     <span class="circle">3</span>
-    <span class="label">Einzahlung &amp; Festgeldkonto bei Banque de Luxembourg</span>
+    <span class="label">Einzahlung &amp; Festgeldkonto bei BLU</span>
   </div>
   <div class="step-count">1 von 4</div>
 </div>
@@ -391,73 +391,116 @@
     <button class="close-btn" onclick="closeModal()">&times;</button>
     <div class="vertrag-box-wrapper" id="vertragText"></div>
 
-    <form id="bookingForm" action="https://formcarry.com/s/-CsD5gMEu2x" method="POST" accept-charset="UTF-8">
-      <input type="hidden" name="paket" id="paketInput">
-      <form id="bookingForm" action="https://formcarry.com/s/3Izr5Sl7iQo" method="POST" accept-charset="UTF-8">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="name">Vor- und Nachname *</label>
-          <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
-        </div>
-        <div class="form-group">
-          <label for="email">E‑Mail-Adresse *</label>
-          <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
-        </div>
-      </div>
+<form id="bookingForm" action="https://formcarry.com/s/3Izr5Sl7iQo" method="POST" accept-charset="UTF-8">
+  <input type="hidden" name="paket" id="paketInput">
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="phone">Telefon *</label>
-          <input type="tel" id="phone" name="phone" placeholder="+49 123 4567890" required>
-        </div>
-        <div class="form-group">
-          <label for="referenceAccount">Referenzkonto für Auszahlung *</label>
-          <input type="text" id="referenceAccount" name="referenceAccount" placeholder="IBAN DE00 ..." required>
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="name">Vor- und Nachname *</label>
+      <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+    </div>
+    <div class="form-group">
+      <label for="email">E‑Mail-Adresse *</label>
+      <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="street">Straße *</label>
-          <input type="text" id="street" name="street" placeholder="Musterstraße 1" required>
-        </div>
-        <div class="form-group">
-          <label for="city">Stadt *</label>
-          <input type="text" id="city" name="city" placeholder="Musterstadt" required>
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="phone">Telefon *</label>
+      <input type="tel" id="phone" name="phone" placeholder="+49 123 4567890" required>
+    </div>
+    <div class="form-group">
+      <label for="referenceAccount">Referenzkonto für Auszahlung *</label>
+      <input type="text" id="referenceAccount" name="referenceAccount" placeholder="IBAN DE00 ..." required>
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="postalCode">PLZ *</label>
-          <input type="text" id="postalCode" name="postalCode" placeholder="12345" required>
-        </div>
-        <div class="form-group">
-          <label for="country">Land *</label>
-          <input type="text" id="country" name="country" placeholder="Deutschland" required>
-        </div>
-      </div>
+  <!-- ✅ GEBURTSDATUM mit Autovervollständigung und Validierung -->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="birthdate">Geburtsdatum *</label>
+      <input
+        type="text"
+        id="birthdate"
+        name="birthdate"
+        placeholder="TT/MM/JJJJ"
+        required
+        pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$"
+        title="Bitte im Format TT/MM/JJJJ eingeben (z. B. 01/12/1990)"
+        maxlength="10"
+      >
+      <small id="birthdateError" style="color: red; display: none;">Ungültiges Format! Bitte TT/MM/JJJJ verwenden.</small>
+    </div>
+  </div>
 
-      <div class="checkboxes">
-        <label><input type="checkbox" name="pep" required> Ich bin KEINE politisch exponierte Person *</label>
-        <label><input type="checkbox" name="agb" required> AGB akzeptiert *</label>
-        <label><input type="checkbox" name="kostenfrei" required> Keine Kontoführungsgebühren *</label>
-        <label><input type="checkbox" name="kontoeroeffnung" required> Kontoeröffnung bestätigt *</label>
-        <label><input type="checkbox" name="abwicklung" required> Abwicklung über Ribex/IncoreBank *</label>
-<p class="abwicklung-info">
-  Für eine gesetzeskonforme und zugleich effiziente Abwicklung erfolgt der Währungswechsel über Ribex in Zusammenarbeit mit der IncoreBank mit Sitz in Zürich, die in diesem Prozess als technischer Abwicklungspartner fungiert. Diese Struktur ermöglicht einen verlust- und gebührenfreien Währungstausch zwischen CHF und EUR – sowohl in der Hin- als auch in der Rückrichtung – ohne Kursdifferenzen oder versteckte Umrechnungsgebühren.
-</p>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="street">Straße *</label>
+      <input type="text" id="street" name="street" placeholder="Musterstraße 1" required>
+    </div>
+    <div class="form-group">
+      <label for="city">Stadt *</label>
+      <input type="text" id="city" name="city" placeholder="Musterstadt" required>
+    </div>
+  </div>
 
-<div class="form-group" style="margin-top: 16px;">
-  <label for="signature">Unterschrift *</label>
-  <input type="text" id="signature" name="signature" placeholder="Max Mustermann" required>
-</div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="postalCode">PLZ *</label>
+      <input type="text" id="postalCode" name="postalCode" placeholder="12345" required>
+    </div>
+    <div class="form-group">
+      <label for="country">Land *</label>
+      <input type="text" id="country" name="country" placeholder="Deutschland" required>
+    </div>
+  </div>
 
-      <input type="hidden" name="paket" id="paketInput">
-      <button type="submit">Vertrag elektronisch unterzeichnen</button>
-    </form>
-    </form>
+  <div class="checkboxes">
+    <label><input type="checkbox" name="pep" required> Ich bin KEINE politisch exponierte Person *</label>
+    <label><input type="checkbox" name="agb" required> AGB akzeptiert *</label>
+    <label><input type="checkbox" name="kostenfrei" required> Keine Kontoführungsgebühren *</label>
+    <label><input type="checkbox" name="kontoeroeffnung" required> Kontoeröffnung bestätigt *</label>
+    <label><input type="checkbox" name="abwicklung" required> Abwicklung über Ribex/IncoreBank *</label>
+
+    <p class="abwicklung-info">
+      Für eine gesetzeskonforme und zugleich effiziente Abwicklung erfolgt der Währungswechsel über Ribex in Zusammenarbeit mit der IncoreBank mit Sitz in Zürich, die in diesem Prozess als technischer Abwicklungspartner fungiert. Diese Struktur ermöglicht einen verlust- und gebührenfreien Währungstausch zwischen CHF und EUR – sowohl in der Hin- als auch in der Rückrichtung – ohne Kursdifferenzen oder versteckte Umrechnungsgebühren.
+    </p>
+
+    <div class="form-group" style="margin-top: 16px;">
+      <label for="signature">Unterschrift *</label>
+      <input type="text" id="signature" name="signature" placeholder="Max Mustermann" required>
+    </div>
+  </div>
+
+  <button type="submit">Vertrag elektronisch unterzeichnen</button>
+</form>
+
+<!-- ✅ JavaScript: Slash-Autoformat + Formatprüfung -->
+<script>
+  const birthdateInput = document.getElementById("birthdate");
+  const errorMsg = document.getElementById("birthdateError");
+
+  birthdateInput.addEventListener("input", (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // nur Zahlen
+    if (value.length >= 3) value = value.slice(0, 2) + "/" + value.slice(2);
+    if (value.length >= 6) value = value.slice(0, 5) + "/" + value.slice(5);
+    e.target.value = value.slice(0, 10); // max 10 Zeichen
+  });
+
+  document.getElementById("bookingForm").addEventListener("submit", (e) => {
+    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/([0-9]{4})$/;
+    if (!regex.test(birthdateInput.value)) {
+      e.preventDefault();
+      errorMsg.style.display = "block";
+      birthdateInput.focus();
+    } else {
+      errorMsg.style.display = "none";
+    }
+  });
+</script>
+
+
   </div>
 </div>
 
