@@ -350,6 +350,11 @@
   color: #666;
   font-size: 14px;
 }
+.zinsertrag {
+  color: green;
+  font-weight: bold;
+}
+
 
   </style>
 </head>
@@ -597,7 +602,7 @@ ibanInput.addEventListener("input", () => {
       <p><strong>Laufzeit:</strong> ${p.laufzeit}</p>
       <p><strong>Zinssatz:</strong> ${p.zinssatz} %</p>
       <p><strong>Anlagebetrag:</strong> ${p.betrag.toLocaleString('de-DE')} EUR</p>
-      <p><strong>Zinsertrag:</strong> ${zinsertrag} EUR</p>
+<p><strong>Zinsertrag:</strong> <span style="color: green;">${zinsertrag} EUR</span></p>
       <button class="btn" onclick="zeigeFormular(${i})">Paket buchen</button>
     `;
     grid.appendChild(card);
