@@ -302,6 +302,54 @@
   font-family: 'Segoe UI', sans-serif;
   font-style: italic;
 }
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  font-family: Arial, sans-serif;
+  margin: 20px 0 40px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.step .circle {
+  width: 26px;
+  height: 26px;
+  background-color: #c1a57c;
+  color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.step:not(.active) .circle {
+  background-color: #d9d9d9;
+  color: #555;
+}
+
+.line {
+  height: 2px;
+  width: 30px;
+  background-color: #ccc;
+}
+
+.step-count {
+  margin-left: auto;
+  color: #666;
+  font-size: 14px;
+}
 
   </style>
 </head>
@@ -318,7 +366,23 @@
       Reguliert durch die FINMA
     </div>
   </div>
-
+<div class="step-indicator">
+  <div class="step active">
+    <span class="circle">1</span>
+    <span class="label">Paket &amp; Persönliche Daten</span>
+  </div>
+  <div class="line"></div>
+  <div class="step">
+    <span class="circle">2</span>
+    <span class="label">Zum Identverfahren</span>
+  </div>
+  <div class="line"></div>
+  <div class="step">
+    <span class="circle">3</span>
+    <span class="label">Einzahlung &amp; Festgeldkonto bei BLU</span>
+  </div>
+  <div class="step-count">1 von 4</div>
+</div>
   <div class="paket-grid" id="paketGrid"></div>
 </div>
 
@@ -405,7 +469,7 @@
       <li><a href="https://www.banquedeluxembourg.com/en/bank/bl/legal-information">AGB</a></li>
       <li><a href="https://www.banquedeluxembourg.com/en/bank/bl/legal-information">Kontakt</a></li>
     </ul>
-    <p class="footer-copy">© BLU Switzerland AG 2025. Alle Rechte vorbehalten.</p>
+    <p class="footer-copy">© 2025 Banque de Luxembourg</p>
   </div>
 </footer>
 
