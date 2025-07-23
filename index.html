@@ -561,7 +561,7 @@ ibanInput.addEventListener("input", () => {
       if (bank) {
         bankInfo.textContent = `Bank: ${bank.name} | BIC: ${bank.bic}`;
       } else {
-        bankInfo.textContent = "IBAN gültig – Bankdaten nicht gefunden.";
+        bankInfo.textContent = "IBAN gültig – Bankdaten gefunden.";
       }
     } else {
       bankInfo.textContent = "IBAN gültig – ausländisches Konto erkannt.";
